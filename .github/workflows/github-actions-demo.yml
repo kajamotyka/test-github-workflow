@@ -1,0 +1,22 @@
+name: Moje Workflow
+
+on: [push]
+
+jobs:
+    wersja-pythona:        
+        runs-on: ubuntu-latest
+        steps:        
+            - name: Wyświetl wersję Pythona
+              run: python --version
+
+    testowanie-kodu:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout kodu
+              uses: actions/checkout@v2
+            - name: Pobranie zależności
+              run: pip install -r ${{ github.workspace }}/requiremets.txt
+            - name: Testowanie kodu za pomocą Pylint
+              run: pylint app.py
+              continue-on-error: true
+              
